@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/flask/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - SQLALCHEMY_DATABASE_URI=postgresql://myuser:mypassword@db:5432/mydatabase
+    depends_on:
+      - db
+    volumes:
+      - ./app:/app
+
+volumes:
+  postgres_data:

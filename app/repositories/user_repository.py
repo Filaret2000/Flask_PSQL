@@ -10,21 +10,20 @@ class UserRepository(UserRepositoryInterface):
     def get_user_by_id(self, user_id: int) -> Optional[User]:
         return User.query.get(user_id)
 
-    def create_user(self, username: str, email: str) -> User:
-        new_user = User(username=username, email=email)
-        db.session.add(new_user)
-        db.session.commit()
-        return new_user
-        
-    def update_user(self, user_id: int, username: str, email: str) -> Optional[User]:
-        user = self.get_user_by_id(user_id)
-        if not user:
-            return None
-            
-        user.username = username
-        user.email = email
+    def create_user(self, user: User) -> User:
+        db.session.add(user)
         db.session.commit()
         return user
+        
+    def update_user(self, user_id: int, user: User) -> Optional[User]:
+        old_user = self.get_user_by_id(user_id)
+        if not old_user:
+            return None
+            
+        old_user.username = user.username
+        old_user.email = user.email
+        db.session.commit()
+        return old_user
         
     def delete_user(self, user_id: int) -> bool:
         user = self.get_user_by_id(user_id)

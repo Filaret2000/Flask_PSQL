@@ -14,12 +14,12 @@ class UserRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def create_user(self, username: str, email: str) -> User:
+    def create_user(self, user: User) -> User:
         """Create a new user."""
         pass
         
     @abstractmethod
-    def update_user(self, user_id: int, username: str, email: str) -> Optional[User]:
+    def update_user(self, user_id: int, user: User) -> Optional[User]:
         """Update an existing user."""
         pass
         

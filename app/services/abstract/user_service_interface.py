@@ -1,22 +1,22 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List
-from models.user import User
+from models.DTOs import UserDTO
 
 class UserServiceInterface(ABC):
     @abstractmethod
-    def get_all_users(self) -> List[User]:
+    def get_all_users(self) -> List[UserDTO]:
         pass
         
     @abstractmethod
-    def get_user(self, user_id: int) -> User:
+    def get_user(self, user_id: int) -> UserDTO:
         pass
 
     @abstractmethod
-    def create_user(self, data: dict) -> User:
+    def create_user(self, data: dict) -> UserDTO:
         pass
         
     @abstractmethod
-    def update_user(self, user_id: int, data: dict) -> User:
+    def update_user(self, user_id: int, data: dict) -> UserDTO:
         pass
         
     @abstractmethod

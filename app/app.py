@@ -13,7 +13,38 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
-swagger = Swagger(app)
+swagger = Swagger(app, template={
+    'swagger': '2.0',
+    'info': {
+        'title': 'User API',
+        'version': '1.0'
+    },
+    'definitions': {
+        'User': {
+            'type': 'object',
+            'properties': {
+                'id': {'type': 'integer'},
+                'username': {'type': 'string'},
+                'email': {'type': 'string'}
+            }
+        },
+        'CreateUser': {
+            'type': 'object',
+            'required': ['username', 'email'],
+            'properties': {
+                'username': {'type': 'string'},
+                'email': {'type': 'string'}
+            }
+        },
+        'UpdateUser': {
+            'type': 'object',
+            'properties': {
+                'username': {'type': 'string'},
+                'email': {'type': 'string'}
+            }
+        }
+    }
+})
 
 # Dependency Injection
 container = Container()
